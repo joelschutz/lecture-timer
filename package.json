@@ -2,7 +2,11 @@
   "name": "lecture-timer",
   "displayName": "Lecture Timer",
   "description": "A collection of tools to help you annotate recorded lectures",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "author": {
+    "name": "Joel Schutz",
+    "url": "https://github.com/joelschutz/"
+  },
   "engines": {
     "vscode": "^1.74.1"
   },
@@ -24,7 +28,7 @@
     "markdown.markdownItPlugins": true,
     "markdown.previewStyles": [
       "./styles/md.css"
-  ],
+    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -53,6 +57,14 @@
       }
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joelschutz/lecture-timer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joelschutz/lecture-timer/issues"
+  },
+  "license": "MIT",
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack --config ./build/node-extension.webpack.config.js",
