@@ -10,9 +10,9 @@ This is an extension for VSCode to help you annotate `timestamps` to `markdown` 
 
 Create timers and stamp the current time to a markdown file.
 
-Listen to audio files and take notes on especific moments
+Listen to audio files and take notes on specific moments
 
-Use the `MarkStamp` command to add a timestamp to your text. It can be an standalone stamp, an inline content or an intire text block
+Use the `MarkStamp` command to add a timestamp to your text. It can be an standalone stamp, an inline content or an entire text block
 
 It uses generic markdown directives so you can export to any markdowm pos-processor
 
@@ -30,3 +30,7 @@ Users appreciate release notes as you update your extension.
 ### 0.1.0
 
 Initial release and pre-release
+
+### 0.1.1
+
+A patch to remove some performance issues while editing files and fixes bugs. Check Changelog for more details.

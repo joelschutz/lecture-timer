@@ -2,7 +2,8 @@
   "name": "lecture-timer",
   "displayName": "Lecture Timer",
   "description": "A collection of tools to help you annotate recorded lectures",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "publisher": "joelschutz",
   "author": {
     "name": "Joel Schutz",
     "url": "https://github.com/joelschutz/"
