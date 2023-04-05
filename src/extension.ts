@@ -49,7 +49,6 @@ function updateTimeStampsPosition(document: vscode.TextDocument, timeStamps: Sta
 			const re = new RegExp(':lec-timer.+}').exec(line.text)
 			const l = re ? re.length : 0
 			for (let rIndex = 0; rIndex < l; rIndex++) {
-				console.log(timeStamps, rIndex, stampIndex)
 				timeStamps[stampIndex + rIndex].line = line.lineNumber
 			}
 			stampIndex += l
@@ -131,13 +130,30 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.registerWebviewViewProvider("lecture-timer-sidebar", sidebarProvider)
 	);
 
-	vscode.workspace.onDidChangeTextDocument((e: vscode.TextDocumentChangeEvent) => {
+	vscode.workspace.onDidSaveTextDocument((e: vscode.TextDocument) => {
 		if (e) {
-			const timerIndex = files.get(e.document)
+			const timerIndex = files.get(e)
 			if (timerIndex != undefined) {
-				const stamps = timerManager.GetTimer(timerIndex).stamps
-				timerManager.SetStamps(timerIndex, updateTimeStampsPosition(e.document, stamps))
-				sidebarProvider.updatePanel(timerIndex, false)
+				let data = parseMarkdown(e.getText()).lecture
+				const timer = timerManager.GetTimer(timerIndex)
+				var fullReset = false
+				if (data.title != timer.title) {
+					timerManager.SetTitle(timerIndex, data.title)
+					fullReset = true
+				}
+				if (data.file != timer.file) {
+					timerManager.SetFile(timerIndex, data.file)
+					timerManager.SetTime(timerIndex, 0)
+					timerManager.StopTimer(timerIndex)
+					fullReset = true
+				}
+				if (data.duration != timer.duration) {
+					timerManager.SetDuration(timerIndex, +data.duration)
+					fullReset = true
+				}
+				const stamps: any = findTimeStamps(md.parse(e.getText(), {}), [])
+				timerManager.SetStamps(timerIndex, updateTimeStampsPosition(e, stamps))
+				sidebarProvider.updatePanel(timerIndex, fullReset)
 			}
 		}
 	})
@@ -145,6 +161,7 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.window.onDidChangeActiveTextEditor(async (e: vscode.TextEditor | undefined) => {
 		updateManagerState(e,sidebarProvider)
 	})
+
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "lecture-timer" is now active!');

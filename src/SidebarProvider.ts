@@ -55,7 +55,6 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                     if (data.value == undefined) {
                         return;
                     }
-                    console.log(data.value)
                     this.manager.SetTime(data.index, data.value)
                     break;
                 }
@@ -115,10 +114,17 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                 type: "file",
                 value: data.file ? this._view?.webview.asWebviewUri(f).toString() : "",
             });
-
             this._view?.webview.postMessage({
                 type: "current",
                 value: this.manager.GetTime(timerIndex),
+            });
+            this._view?.webview.postMessage({
+                type: "playState",
+                value: this.manager.IsPaused(timerIndex),
+            });
+            this._view?.webview.postMessage({
+                type: "index",
+                value: timerIndex,
             });
         }
         this._view?.webview.postMessage({
@@ -130,17 +136,10 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             value: data.duration,
         });
         this._view?.webview.postMessage({
-            type: "index",
-            value: timerIndex,
-        });
-        this._view?.webview.postMessage({
             type: "stamps",
             value: data.stamps,
         });
-        this._view?.webview.postMessage({
-            type: "playState",
-            value: this.manager.IsPaused(timerIndex),
-        });
+        
     }
 
     public revive(panel: vscode.WebviewView) {

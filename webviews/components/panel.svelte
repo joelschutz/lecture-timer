@@ -14,12 +14,12 @@
     let isPaused = true;
 
     const reset = (full: boolean) => {
-        timerIndex = -1;
         title = "No Title";
         duration = -1;
         stamps = [];
         stampIndex = -1;
         if (full) {
+            timerIndex = -1;
             currentTime = -1;
             file = "";
             isPaused = true;
@@ -116,7 +116,6 @@
         window.addEventListener("message", async (event) => {
             switch (event.data.type) {
                 case "reset": {
-                    console.log(event.data.value)
                     reset(event.data.value);
                     break;
                 }
@@ -134,7 +133,6 @@
                     break;
                 }
                 case "current": {
-                    console.log(event.data.value);
                     updateCurrentTime(event.data.value, false);
                     break;
                 }
