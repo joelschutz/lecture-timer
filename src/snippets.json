@@ -1,0 +1,13 @@
+{
+	"Timer Template": {
+		"prefix": "initTimer",
+		"body": [
+			"---",
+			"lecture:",
+			"  title: \"${1:My Title}\"",
+			"  file: \"$0\"",
+			"---"
+		],
+		"description": "Place Timer Template"
+	}
+}

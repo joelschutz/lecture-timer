@@ -1,0 +1,102 @@
+{
+  "name": "lecture-timer",
+  "displayName": "Lecture Timer",
+  "description": "A collection of tools to help you annotate recorded lectures",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:lecture-timer.stampMarker",
+    "onView:lecture-timer-sidebar"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "markdown",
+        "path": "./src/snippets.json"
+      }
+    ],
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": [
+      "./styles/md.css"
+  ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lecture-timer-sidebar-view",
+          "title": "Lecture Timer",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "lecture-timer-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "lecture-timer-sidebar",
+          "name": "Lecture Timer",
+          "icon": "media/icon.svg",
+          "contextualTitle": "Lecture Timer"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "lecture-timer.stampMarker",
+        "title": "Stamp Marker",
+        "category": "Lecture Timer"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack --config ./build/node-extension.webpack.config.js",
+    "watch": "concurrently \"rollup -c -w\" \"webpack --watch --config ./build/node-extension.webpack.config.js\"",
+    "package": "webpack --mode production --devtool hidden-source-map --config ./build/node-extension.webpack.config.js",
+    "test-compile": "tsc -p ./",
+    "test-watch": "tsc -watch -p ./",
+    "pretest": "npm run test-compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@rollup/plugin-typescript": "^8.1.0",
+    "@tsconfig/svelte": "^1.0.10",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/polka": "^0.5.1",
+    "@types/vscode": "^1.52.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "@vscode/test-electron": "^2.3.0",
+    "concurrently": "^5.3.0",
+    "eslint": "^7.15.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.1.3",
+    "rollup": "^2.3.4",
+    "rollup-plugin-svelte": "^6.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^3.31.0",
+    "svelte-check": "^1.1.23",
+    "svelte-preprocess": "^4.6.1",
+    "ts-loader": "^8.0.11",
+    "typescript": "^4.1.2",
+    "vscode-test": "^1.4.1",
+    "webpack": "^5.10.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "front-matter-markdown": "^0.4.5",
+    "markdown-it": "^13.0.1",
+    "markdown-it-directive": "^1.0.1",
+    "markdown-it-directive-webcomponents": "^1.2.0"
+  }
+}

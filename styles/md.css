@@ -1,0 +1,13 @@
+timer {
+  border: 1px solid var(--vscode-button-border, transparent);
+}
+
+timer:before {
+  content: "⏱️" attr(preview);
+  padding: 2px;
+  padding-right: 4px;
+}
+
+[type="block"]:after {
+  content: "⏱️";
+}
